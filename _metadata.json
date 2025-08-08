@@ -1,0 +1,53 @@
+{
+  "hash": "589d433d",
+  "browserHash": "f1496ae4",
+  "optimized": {
+    "pinia": {
+      "src": "../../pinia/dist/pinia.mjs",
+      "file": "pinia.js",
+      "fileHash": "514c1627",
+      "needsInterop": false
+    },
+    "vue": {
+      "src": "../../vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "6f03ef95",
+      "needsInterop": false
+    },
+    "vue-router": {
+      "src": "../../vue-router/dist/vue-router.mjs",
+      "file": "vue-router.js",
+      "fileHash": "555d81bd",
+      "needsInterop": false
+    },
+    "chart.js/auto": {
+      "src": "../../chart.js/auto/auto.js",
+      "file": "chart__js_auto.js",
+      "fileHash": "fe833435",
+      "needsInterop": false
+    },
+    "ag-grid-vue3": {
+      "src": "../../ag-grid-vue3/lib/AgGridVue.js",
+      "file": "ag-grid-vue3.js",
+      "fileHash": "cf87ec03",
+      "needsInterop": false
+    },
+    "chart.js": {
+      "src": "../../chart.js/dist/chart.js",
+      "file": "chart__js.js",
+      "fileHash": "811920a4",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-YFVHMSCZ": {
+      "file": "chunk-YFVHMSCZ.js"
+    },
+    "chunk-XEO32CYH": {
+      "file": "chunk-XEO32CYH.js"
+    },
+    "chunk-2B2CG5KL": {
+      "file": "chunk-2B2CG5KL.js"
+    }
+  }
+}
