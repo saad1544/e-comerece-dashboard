@@ -1,214 +1,126 @@
-# @vitejs/plugin-vue [![npm](https://img.shields.io/npm/v/@vitejs/plugin-vue.svg)](https://npmjs.com/package/@vitejs/plugin-vue)
+![AG Grid HTML5 Grid trusted by the community, built for enterprise](./github-banner.png "AG Grid")
 
-> Note: as of `vue` 3.2.13+ and `@vitejs/plugin-vue` 1.9.0+, `@vue/compiler-sfc` is no longer required as a peer dependency.
+[![CDNJS](https://img.shields.io/cdnjs/v/ag-grid)](https://cdnjs.com/libraries/ag-grid) [![Github Stars](https://img.shields.io/github/stars/ag-grid/ag-grid?style=social)](https://github.com/ag-grid/ag-grid) [![Twitter](https://img.shields.io/twitter/follow/ag_grid?style=social)](https://twitter.com/ag_grid)
+
+| Module              | Info |
+| --------------------|------------------:|
+| ag-grid-community   | [![npm](https://img.shields.io/npm/dm/ag-grid-community)](https://www.npmjs.com/package/ag-grid-community) <br> [![Bundle Phobia](https://badgen.net/bundlephobia/minzip/ag-grid-community)](https://bundlephobia.com/result?p=ag-grid-community) <br> [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ag-grid-community&metric=alert_status)](https://sonarcloud.io/dashboard?id=ag-grid-community) <br> |
+| ag-grid-enterprise  | [![npm](https://img.shields.io/npm/dm/ag-grid-enterprise)](https://www.npmjs.com/package/ag-grid-enterprise) <br> [![Bundle Phobia](https://badgen.net/bundlephobia/minzip/ag-grid-enterprise)](https://bundlephobia.com/result?p=ag-grid-enterprise) <br> [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ag-grid-enterprise&metric=alert_status)](https://sonarcloud.io/dashboard?id=ag-grid-enterprise) |
+
+# AG Grid
+
+AG Grid is a fully-featured and highly customizable JavaScript data grid.
+It delivers [outstanding performance](https://www.ag-grid.com/example?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github), has no third-party dependencies and [integrates smoothly with all major JavaScript frameworks](https://www.ag-grid.com/javascript-data-grid/?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github).
+
+Here's how our grid looks with multiple filters and grouping enabled:
+
+![Image of AG Grid showing filtering and grouping enabled.](./github-grid-demo.jpg "AG Grid demo")
+
+## Features
+
+In addition to the standard set of features you'd expect from any grid:
+
+* Column Interactions (resize, reorder, and pin columns)
+* Pagination
+* Sorting
+* Row Selection
+
+Here are some of the features that make AG Grid stand out:
+
+* Grouping / Aggregation *
+* Accessibility support
+* Custom Filtering
+* In-place Cell Editing
+* Records Lazy Loading *
+* Server-Side Records Operations *
+* Live Stream Updates
+* Hierarchical Data Support & Tree View *
+* Customizable Appearance
+* Customizable Cell Contents
+* State Persistence
+* Keyboard Navigation
+* Data Export to CSV
+* Data Export to Excel *
+* Excel-like Pivoting *
+* Row Reordering
+* Copy / Paste
+* Column Spanning
+* Pinned Rows
+* Full Width Rows
+* Integrated Charting
+* Sparklines
+
+\* The features marked with an asterisk are available in the [Enterprise version](https://www.ag-grid.com/license-pricing?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github) only.
+
+Check out the [developer documentation](https://www.ag-grid.com/documentation/?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github) for a complete list of features or visit [our official docs](https://www.ag-grid.com/features-overview/?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github) for tutorials and feature demos.
+
+## Looking for a framework specific solution?
+
+* [Get Started with Angular](https://www.ag-grid.com/angular-data-grid/getting-started/?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github)
+* [Get Started with React](https://www.ag-grid.com/react-data-grid/getting-started/?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github)
+* [Get Started with Vue](https://www.ag-grid.com/vue-data-grid/getting-started/?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github)
+
+## Getting started
+
+### Install dependencies
+
+```sh
+$ npm install --save ag-grid-community
+```
+
+### Add a placeholder to HTML
+
+```html
+<div id="myGrid" style="height: 150px; width: 600px" class="ag-theme-alpine"></div>
+```
+
+### Import the grid and styles
 
 ```js
-// vite.config.js
-import vue from '@vitejs/plugin-vue'
+import { Grid } from 'ag-grid-community';
 
-export default {
-  plugins: [vue()],
-}
+import 'ag-grid-community/styles//ag-grid.css';
+import 'ag-grid-community/styles//ag-theme-alpine.css';
 ```
 
-For JSX / TSX support, [`@vitejs/plugin-vue-jsx`](https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue-jsx) is also needed.
-
-## Options
-
-```ts
-export interface Options {
-  include?: string | RegExp | (string | RegExp)[]
-  exclude?: string | RegExp | (string | RegExp)[]
-
-  isProduction?: boolean
-
-  // options to pass on to vue/compiler-sfc
-  script?: Partial<
-    Pick<
-      SFCScriptCompileOptions,
-      | 'babelParserPlugins'
-      | 'globalTypeFiles'
-      | 'defineModel'
-      | 'propsDestructure'
-      | 'fs'
-      | 'reactivityTransform'
-    >
-  >
-
-  template?: Partial<
-    Pick<
-      SFCTemplateCompileOptions,
-      | 'compiler'
-      | 'compilerOptions'
-      | 'preprocessOptions'
-      | 'preprocessCustomRequire'
-      | 'transformAssetUrls'
-    >
-  >
-  style?: Partial<Pick<SFCStyleCompileOptions, 'trim'>>
-
-  /**
-   * Transform Vue SFCs into custom elements.
-   * - `true`: all `*.vue` imports are converted into custom elements
-   * - `string | RegExp`: matched files are converted into custom elements
-   *
-   * @default /\.ce\.vue$/
-   */
-  customElement?: boolean | string | RegExp | (string | RegExp)[]
-
-  /**
-   * Enable Vue reactivity transform (experimental).
-   * https://vuejs.org/guide/extras/reactivity-transform.html
-   * - `true`: transform will be enabled for all vue,js(x),ts(x) files except
-   *           those inside node_modules
-   * - `string | RegExp`: apply to vue + only matched files (will include
-   *                      node_modules, so specify directories if necessary)
-   * - `false`: disable in all cases
-   *
-   * @default false
-   */
-  reactivityTransform?: boolean | string | RegExp | (string | RegExp)[]
-
-  /**
-   * Use custom compiler-sfc instance. Can be used to force a specific version.
-   */
-  compiler?: typeof _compiler
-}
-```
-
-## Asset URL handling
-
-When `@vitejs/plugin-vue` compiles the `<template>` blocks in SFCs, it also converts any encountered asset URLs into ESM imports.
-
-For example, the following template snippet:
-
-```vue
-<img src="../image.png" />
-```
-
-Is the same as:
-
-```vue
-<script setup>
-import _imports_0 from '../image.png'
-</script>
-
-<img :src="_imports_0" />
-```
-
-By default the following tag/attribute combinations are transformed, and can be configured using the `template.transformAssetUrls` option.
+### Set configuration
 
 ```js
-{
-  video: ['src', 'poster'],
-  source: ['src'],
-  img: ['src'],
-  image: ['xlink:href', 'href'],
-  use: ['xlink:href', 'href']
-}
+var gridOptions = {
+	columnDefs: [
+		{ headerName: 'Make', field: 'make' },
+		{ headerName: 'Model', field: 'model' },
+		{ headerName: 'Price', field: 'price' }
+	],
+	rowData: [
+		{ make: 'Toyota', model: 'Celica', price: 35000 },
+		{ make: 'Ford', model: 'Mondeo', price: 32000 },
+		{ make: 'Porsche', model: 'Boxster', price: 72000 }
+	]
+};
 ```
 
-Note that only attribute values that are static strings are transformed. Otherwise, you'd need to import the asset manually, e.g. `import imgUrl from '../image.png'`.
-
-## Example for passing options to `vue/compiler-sfc`:
-
-```ts
-import vue from '@vitejs/plugin-vue'
-
-export default {
-  plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          // ...
-        },
-        transformAssetUrls: {
-          // ...
-        },
-      },
-    }),
-  ],
-}
-```
-
-## Example for transforming custom blocks
-
-```ts
-import vue from '@vitejs/plugin-vue'
-import yaml from 'js-yaml'
-
-const vueI18nPlugin = {
-  name: 'vue-i18n',
-  transform(code, id) {
-    // if .vue file don't have <i18n> block, just return
-    if (!/vue&type=i18n/.test(id)) {
-      return
-    }
-    // parse yaml
-    if (/\.ya?ml$/.test(id)) {
-      code = JSON.stringify(yaml.load(code.trim()))
-    }
-    // mount the value on the i18n property of the component instance
-    return `export default Comp => {
-      Comp.i18n = ${code}
-    }`
-  },
-}
-
-export default {
-  plugins: [vue(), vueI18nPlugin],
-}
-```
-
-Create a file named `Demo.vue`, add `lang="yaml"` to the `<i18n>` blocks, then you can use the syntax of `YAML`:
-
-```vue
-<template>Hello</template>
-
-<i18n lang="yaml">
-message: 'world'
-fullWord: 'hello world'
-</i18n>
-```
-
-`message` is mounted on the i18n property of the component instance, you can use like this:
-
-```vue
-<script setup lang="ts">
-import Demo from 'components/Demo.vue'
-</script>
-
-<template>
-  <Demo /> {{ Demo.i18n.message }}
-  <div>{{ Demo.i18n.fullWord }}</div>
-</template>
-```
-
-## Using Vue SFCs as Custom Elements
-
-> Requires `vue@^3.2.0` & `@vitejs/plugin-vue@^1.4.0`
-
-Vue 3.2 introduces the `defineCustomElement` method, which works with SFCs. By default, `<style>` tags inside SFCs are extracted and merged into CSS files during build. However when shipping a library of custom elements, it may be desirable to inline the styles as JavaScript strings and inject them into the custom elements' shadow root instead.
-
-Starting in 1.4.0, files ending with `*.ce.vue` will be compiled in "custom elements" mode: its `<style>` tags are compiled into inlined CSS strings and attached to the component as its `styles` property:
+### Initialise the grid
 
 ```js
-import { defineCustomElement } from 'vue'
-import Example from './Example.ce.vue'
-
-console.log(Example.styles) // ['/* css content */']
-
-// register
-customElements.define('my-example', defineCustomElement(Example))
+var eGridDiv = document.querySelector('#myGrid');
+new Grid(eGridDiv, this.gridOptions);
 ```
 
-Note in custom elements mode there is no need to use `<style scoped>` since the CSS is already scoped inside the shadow DOM.
+For more information on how to integrate the grid into your project see [Building AG Grid Applications](https://www.ag-grid.com/javascript-data-grid/building/?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github).
 
-The `customElement` plugin option can be used to configure the behavior:
+## Issue Reporting
 
-- `{ customElement: true }` will import all `*.vue` files in custom element mode.
-- Use a string or regex pattern to change how files should be loaded as Custom Elements (this check is applied after `include` and `exclude` matches).
+If you have found a bug, please report it in this repository's [issues](https://github.com/ag-grid/ag-grid/issues) section. If you're using the Enterprise version, please use the [private ticketing](https://ag-grid.zendesk.com/) system to do that.
+
+## Asking Questions
+
+Look for similar problems on [StackOverflow](https://stackoverflow.com/questions/tagged/ag-grid) using the `ag-grid` tag. If nothing seems related, post a new message there. Please do not use GitHub issues to ask questions.
+
+## Contributing
+
+AG Grid is developed by a team of co-located developers in London. If you want to join the team check out our [jobs board](https://www.ag-grid.com/ag-grid-jobs-board/?utm_source=ag-grid-readme&utm_medium=repository&utm_campaign=github) or send your application to info@ag-grid.com.
 
 ## License
 
-MIT
+This project is licensed under the MIT license. See the [LICENSE file](./LICENSE.txt) for more info.
